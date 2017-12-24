@@ -1,0 +1,8 @@
+{
+  "name": "MoneyApp2",
+  "app_id": "ffbf254d",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
