@@ -1,0 +1,30 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h2>Bienvenido!</h2>
+  <ion-card>
+    <ion-card-header>
+      Movimientos
+    </ion-card-header>
+    <!-- Lista de transacciones -->
+    <ion-list *ngFor="let transaction of transactions">
+      <button ion-item>
+        <strong>{{transaction.amount}}</strong>
+        {{transaction.title}}
+      </button>
+    </ion-list>
+
+    <!-- Botón para agregar una nueva transacción -->
+    <ion-fab>
+      <button ion-fab [navPush]="addingPage">+</button>
+    </ion-fab>
+  </ion-card>
+
+</ion-content>
