@@ -24,11 +24,15 @@
   </ion-item>
   <ion-item>
     <ion-label> Guardar ubicación? </ion-label>
-    <ion-toggle 
-      name="guardarCoordenadas" 
-      [(ngModel)]="shouldGeolocate"
-      (ionChange)="getLocation()"></ion-toggle>
+    <ion-toggle name="guardarCoordenadas" [(ngModel)]="shouldGeolocate" (ionChange)="getLocation()"></ion-toggle>
   </ion-item>
+  <img [src]="imageData" *ngIf="imageData">
+  <div class="actions">
+    <button ion-button clear (click)="getPhoto()">
+      <ion-icon name="add"></ion-icon>
+      Agregar foto
+    </button>
+  </div>
   <div class="actions">
     <button ion-button (click)="save()" [disabled]="!shouldSend">Agregar</button>
   </div>

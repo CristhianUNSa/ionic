@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController } from "ionic-angular";
 import { Transaction } from "../../database";
 import { GeolocationService } from "../../services/geolocation.service";
+import { Camera, CameraOptions } from "@ionic-native/camera";
 
 /**
  * Generated class for the AddingPage page.
@@ -16,14 +17,37 @@ import { GeolocationService } from "../../services/geolocation.service";
   templateUrl: "adding.html"
 })
 export class AddingPage {
-  shouldGeolocate :boolean = false;
+  shouldGeolocate: boolean = false;
   shouldSend: boolean = true;
   longitude: number;
   latitude: number;
   model: Transaction;
+  imageData: string;
 
-  constructor(public navCtrl: NavController, public geolocator: GeolocationService) {
+  constructor(
+    public navCtrl: NavController,
+    public geolocator: GeolocationService,
+    private camera: Camera
+  ) {
     this.limpiar();
+  }
+
+  getPhoto() {
+    const options: CameraOptions = {
+      quality: 80,
+      allowEdit: false,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+    this.camera
+      .getPicture(options)
+      .then(imageData => {
+        let base64Image = "data:image/jpeg;base64," + imageData;
+        this.imageData = base64Image;
+      })
+      .catch(err => console.error(err));
   }
 
   save() {
@@ -40,25 +64,23 @@ export class AddingPage {
   }
 
   getLocation() {
-    if(this.shouldGeolocate) {
+    if (this.shouldGeolocate) {
       this.shouldSend = false;
-      this.geolocator.get()
-        .then((resultado) => {
+      this.geolocator
+        .get()
+        .then(resultado => {
           this.model.setCoords(resultado.coords);
           this.shouldSend = true;
           console.log(this.model);
         })
-        .catch(err=> {
+        .catch(err => {
           console.error(err);
-        })
+        });
     } else {
       this.model.cleanCoords();
       console.log(this.model);
     }
-    
   }
 
-  ionViewDidLoad() {
-    
-  }
+  ionViewDidLoad() {}
 }

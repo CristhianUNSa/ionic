@@ -14,6 +14,8 @@ import { TransactionsPage } from "../pages/transactions/transactions";
 import { AddingPage } from "../pages/adding/adding";
 import { MapPage } from "../pages/map/map";
 import { GeolocationService } from "../services/geolocation.service";
+import { GoogleMaps } from "@ionic-native/google-maps";
+import { Camera } from "@ionic-native/camera";
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { GeolocationService } from "../services/geolocation.service";
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    GeolocationService
+    GeolocationService,
+    GoogleMaps,
+    Camera
   ]
 })
 export class AppModule {}
