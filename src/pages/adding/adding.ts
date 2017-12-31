@@ -34,18 +34,21 @@ export class AddingPage {
 
   getPhoto() {
     const options: CameraOptions = {
-      quality: 80,
+      quality: 20,
       allowEdit: false,
       sourceType: this.camera.PictureSourceType.CAMERA,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      targetHeight: 100,
+      targetWidth: 100
     };
     this.camera
       .getPicture(options)
       .then(imageData => {
         let base64Image = "data:image/jpeg;base64," + imageData;
         this.imageData = base64Image;
+        this.model.imageUrl = base64Image;
       })
       .catch(err => console.error(err));
   }
